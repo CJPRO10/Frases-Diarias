@@ -1,0 +1,24 @@
+.notification-permission {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.notification-btn {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.notification-btn:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+}

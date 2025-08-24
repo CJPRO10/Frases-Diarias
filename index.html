@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frases Diarias Para Ti ❤️</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/notifications.css">
+    <link rel="icon" href="assets/icon.png">
+</head>
+<body>
+    <div class="flowers-bg" id="flowersBackground"></div>
+    
+    <div class="container">
+        <div class="header">
+            <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+            <h1>💖 Tu Frase Diaria 💖</h1>
+            <div id="userInfo" style="display: none; text-align: center; margin-top: 10px;">
+                <span style="color: var(--text-light); font-size: 0.9rem;">Sesión de: <strong id="currentUserName"></strong></span>
+                <button onclick="logout()" style="background: var(--accent); color: white; border: none; padding: 5px 10px; border-radius: 15px; margin-left: 10px; cursor: pointer; font-size: 0.8rem;">Cerrar Sesión</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de login -->
+        <div class="welcome-screen" id="loginScreen">
+            <h2>¡Bienvenida! ✨</h2>
+            <p style="margin: 20px 0;">Para darte una experiencia personalizada, necesito que inicies sesión:</p>
+            
+            <div class="input-group">
+                <label for="username">Tu nombre de usuario:</label>
+                <input type="text" id="username" placeholder="Ej: Maria, Ana, Sofia..." maxlength="15">
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Tu contraseña:</label>
+                <input type="password" id="password" placeholder="Ingresa tu contraseña" maxlength="20">
+            </div>
+            
+            <button class="btn" onclick="login()">Iniciar Sesión 💖</button>
+            
+            <p style="margin-top: 20px; color: #666; font-size: 0.9rem;">
+                ¿Primera vez? <a href="#" onclick="showRegisterForm()" style="color: var(--accent);">Crear una cuenta</a>
+            </p>
+            
+            <div id="registerForm" style="display: none; margin-top: 20px;">
+                <div class="input-group">
+                    <label for="registerNickname">¿Cómo te gusta que te llamen?</label>
+                    <input type="text" id="registerNickname" placeholder="Ej: mi amor, princesa, corazón..." maxlength="20">
+                </div>
+                <button class="btn" onclick="registerUser()">Crear Cuenta 💝</button>
+            </div>
+            
+            <div id="notificationPermission" class="notification-permission" style="display: none; margin-top: 30px;">
+                <p>¿Te gustaría recibir notificaciones diarias con frases especiales a las 6:00 AM? 🌅</p>
+                <button class="notification-btn" onclick="requestNotificationPermission()">Activar Notificaciones 🔔</button>
+            </div>
+        </div>
+
+        <!-- Aplicación principal -->
+        <div class="main-app" id="mainApp">
+            <div class="nav-buttons">
+                <button class="nav-btn active" onclick="showSection('today')">Hoy</button>
+                <button class="nav-btn" onclick="showSection('calendar')">Calendario</button>
+                <button class="nav-btn" onclick="showSection('favorites')">Favoritas ❤️</button>
+                <button class="nav-btn" onclick="showSection('personal')">Mis Frases 💝</button>
+            </div>
+
+            <!-- Sección de hoy -->
+            <div id="todaySection">
+                <div class="quote-card" id="quoteCard">
+                    <div class="quote-text" id="quoteText">Cargando tu frase especial...</div>
+                    <div class="quote-date" id="quoteDate"></div>
+                    <div class="actions">
+                        <button class="heart-btn" id="favoriteBtn" onclick="toggleFavorite()">
+                            <span id="heartIcon">🤍</span> Marcar como favorita
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección del calendario -->
+            <div id="calendarSection" style="display: none;">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="changeMonth(-1)">‹</button>
+                        <h3 id="calendarTitle">Enero 2025</h3>
+                        <button class="calendar-nav" onclick="changeMonth(1)">›</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+            </div>
+
+            <!-- Sección de favoritas -->
+            <div class="favorites-section" id="favoritesSection">
+                <h3>Tus Frases Favoritas ❤️</h3>
+                <div id="favoritesList">
+                    <p style="text-align: center; color: #666; margin: 40px 0;">
+                        Aún no has marcado ninguna frase como favorita.<br>
+                        ¡Cuando encuentres una que te encante, guárdala aquí!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sección de frases personales -->
+            <div class="favorites-section" id="personalSection">
+                <h3>Tus Frases Personales 💝</h3>
+                <div style="margin-bottom: 20px;">
+                    <div class="input-group">
+                        <label for="personalQuote">Añadir una frase especial:</label>
+                        <textarea id="personalQuote" placeholder="Escribe una frase hermosa que quieras que aparezca en el futuro..." style="width: 100%; padding: 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; min-height: 100px; resize: vertical; background: rgba(255,255,255,0.8); font-family: 'Georgia', serif;" maxlength="300"></textarea>
+                    </div>
+                    <button class="btn" onclick="addNewPersonalQuote()">Añadir Frase 💖</button>
+                </div>
+                <div id="personalQuotesList">
+                    <p style="text-align: center; color: #666; margin: 40px 0;">
+                        Aún no has añadido frases personales.<br>
+                        ¡Crea frases especiales que aparecerán mezcladas con las otras!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sistema de mensajes bonitos -->
+    <div id="messageSystem" class="message-system">
+        <div class="message-box hidden" id="messageBox">
+            <div class="message-content">
+                <span class="message-text" id="messageText"></span>
+                <button class="message-close" onclick="hideMessage()">×</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/quotes.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/notifications.js"></script>
+</body>
+</html>
