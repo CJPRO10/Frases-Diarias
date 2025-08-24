@@ -45,7 +45,7 @@ function registerUser() {
             personal: 0,
             createdDate: new Date().toISOString()
         },
-        theme: 'light',
+        theme: isDarkMode ? 'dark' : 'light',
         notifications: false
     };
     
@@ -115,7 +115,7 @@ function loginAsUser(username) {
     personalQuotes = userData.personalQuotes || [];
     quotesCache = userData.quotesCache || {};
     
-    // Aplicar tema
+    // Aplicar tema guardado del usuario
     if (userData.theme === 'dark') {
         isDarkMode = true;
         document.body.classList.add('dark-mode');

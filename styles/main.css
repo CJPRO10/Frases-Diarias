@@ -7,11 +7,12 @@
 :root {
     --bg-light: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     --bg-dark: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-    --card-light: rgba(255, 255, 255, 0.9);
-    --card-dark: rgba(45, 52, 64, 0.9);
+    --card-light: rgba(255, 255, 255, 0.95);
+    --card-dark: rgba(45, 52, 64, 0.95);
     --text-light: #333;
     --text-dark: #ecf0f1;
     --accent: #e74c3c;
+    --accent-dark: #ff6b6b;
     --flower-opacity-light: 0.1;
     --flower-opacity-dark: 0.05;
     --success: #2ecc71;
@@ -21,12 +22,14 @@
 }
 
 body {
-    font-family: 'Georgia', serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-light);
     min-height: 100vh;
     transition: all 0.3s ease;
     position: relative;
     overflow-x: hidden;
+    padding: 0;
+    margin: 0;
 }
 
 body.dark-mode {
@@ -50,8 +53,8 @@ body.dark-mode .flowers-bg {
 
 .flower {
     position: absolute;
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     background: radial-gradient(circle, #ff6b9d, #c44569);
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     animation: float 6s ease-in-out infinite;
@@ -71,34 +74,42 @@ body.dark-mode .flowers-bg {
 
 @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(10deg); }
+    50% { transform: translateY(-15px) rotate(10deg); }
 }
 
 .container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px;
     position: relative;
     z-index: 1;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     position: relative;
+    padding: 10px 0;
 }
 
 .theme-toggle {
     position: absolute;
-    top: 0;
-    right: 0;
-    background: none;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 255, 255, 0.8);
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
     border-radius: 50%;
     transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .theme-toggle {
+    background: rgba(45, 52, 64, 0.8);
+    color: #ecf0f1;
 }
 
 .theme-toggle:hover {
@@ -107,9 +118,14 @@ body.dark-mode .flowers-bg {
 
 h1 {
     color: var(--text-light);
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    font-size: 1.8rem;
+    margin: 0;
+    padding: 10px 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 body.dark-mode h1 {
@@ -118,28 +134,31 @@ body.dark-mode h1 {
 
 .welcome-screen {
     background: var(--card-light);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     text-align: center;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
+    margin: 10px 0;
 }
 
 body.dark-mode .welcome-screen {
     background: var(--card-dark);
     color: var(--text-dark);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .input-group {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-size: 1rem;
     color: var(--text-light);
+    text-align: left;
 }
 
 body.dark-mode .input-group label {
@@ -148,16 +167,16 @@ body.dark-mode .input-group label {
 
 .input-group input {
     width: 100%;
-    padding: 15px;
+    padding: 12px 15px;
     border: 2px solid #ddd;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.9);
 }
 
 body.dark-mode .input-group input {
-    background: rgba(52, 73, 94, 0.8);
+    background: rgba(52, 73, 94, 0.9);
     color: var(--text-dark);
     border-color: #555;
 }
@@ -170,13 +189,18 @@ body.dark-mode .input-group input {
 .btn {
     background: var(--accent);
     color: white;
-    padding: 15px 30px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
+    border-radius: 8px;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 10px;
+    margin: 8px 0;
+    font-weight: 600;
+}
+
+body.dark-mode .btn {
+    background: var(--accent-dark);
 }
 
 .btn:hover {
@@ -190,11 +214,11 @@ body.dark-mode .input-group input {
 
 .quote-card {
     background: var(--card-light);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    padding: 25px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
     position: relative;
@@ -204,14 +228,16 @@ body.dark-mode .input-group input {
 body.dark-mode .quote-card {
     background: var(--card-dark);
     color: var(--text-dark);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .quote-text {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
     color: var(--text-light);
     font-style: italic;
+    padding: 0 5px;
 }
 
 body.dark-mode .quote-text {
@@ -220,8 +246,8 @@ body.dark-mode .quote-text {
 
 .quote-date {
     color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
 }
 
 body.dark-mode .quote-date {
@@ -231,7 +257,7 @@ body.dark-mode .quote-date {
 .actions {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
@@ -239,16 +265,28 @@ body.dark-mode .quote-date {
     background: none;
     border: 2px solid var(--accent);
     color: var(--accent);
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 8px 16px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+body.dark-mode .heart-btn {
+    border-color: var(--accent-dark);
+    color: var(--accent-dark);
 }
 
 .heart-btn.favorited {
     background: var(--accent);
     color: white;
+}
+
+body.dark-mode .heart-btn.favorited {
+    background: var(--accent-dark);
 }
 
 .heart-btn:hover {
@@ -257,35 +295,42 @@ body.dark-mode .quote-date {
 
 .calendar-container {
     background: var(--card-light);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
+    overflow-x: auto;
 }
 
 body.dark-mode .calendar-container {
     background: var(--card-dark);
     color: var(--text-dark);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+    padding: 0 5px;
 }
 
 .calendar-nav {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     cursor: pointer;
     color: var(--accent);
     padding: 5px 10px;
     border-radius: 5px;
     transition: background 0.3s ease;
+}
+
+body.dark-mode .calendar-nav {
+    color: var(--accent-dark);
 }
 
 .calendar-nav:hover {
@@ -294,17 +339,23 @@ body.dark-mode .calendar-container {
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+    grid-template-columns: repeat(7, minmax(35px, 1fr));
+    gap: 4px;
+    min-width: 0;
 }
 
 .calendar-day {
-    padding: 10px;
+    padding: 8px 4px;
     text-align: center;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: 1px solid transparent;
+    font-size: 0.85rem;
+    min-height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .calendar-day.available {
@@ -312,14 +363,27 @@ body.dark-mode .calendar-container {
     color: var(--accent);
 }
 
+body.dark-mode .calendar-day.available {
+    background: rgba(255, 107, 107, 0.15);
+    color: var(--accent-dark);
+}
+
 .calendar-day.available:hover {
     background: var(--accent);
     color: white;
 }
 
+body.dark-mode .calendar-day.available:hover {
+    background: var(--accent-dark);
+}
+
 .calendar-day.unavailable {
     color: #ccc;
     cursor: not-allowed;
+}
+
+body.dark-mode .calendar-day.unavailable {
+    color: #555;
 }
 
 .calendar-day.today {
@@ -328,42 +392,60 @@ body.dark-mode .calendar-container {
     font-weight: bold;
 }
 
+body.dark-mode .calendar-day.today {
+    background: var(--accent-dark);
+}
+
 .favorites-section {
     background: var(--card-light);
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
     display: none;
+    margin-bottom: 15px;
 }
 
 body.dark-mode .favorites-section {
     background: var(--card-dark);
     color: var(--text-dark);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .nav-buttons {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 15px;
     flex-wrap: wrap;
+    padding: 0 5px;
 }
 
 .nav-btn {
     background: transparent;
     border: 2px solid var(--accent);
     color: var(--accent);
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 8px 15px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+body.dark-mode .nav-btn {
+    border-color: var(--accent-dark);
+    color: var(--accent-dark);
 }
 
 .nav-btn.active {
     background: var(--accent);
     color: white;
+}
+
+body.dark-mode .nav-btn.active {
+    background: var(--accent-dark);
 }
 
 .nav-btn:hover {
@@ -372,15 +454,20 @@ body.dark-mode .favorites-section {
 
 .favorite-item {
     background: rgba(231, 76, 60, 0.05);
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     border-left: 4px solid var(--accent);
+}
+
+body.dark-mode .favorite-item {
+    background: rgba(255, 107, 107, 0.08);
+    border-left: 4px solid var(--accent-dark);
 }
 
 .favorite-quote {
     font-style: italic;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     color: var(--text-light);
 }
 
@@ -405,12 +492,16 @@ body.dark-mode #userInfo span {
     background: var(--accent);
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 8px 15px;
+    border-radius: 8px;
     margin: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: 0.9rem;
+}
+
+body.dark-mode .user-button {
+    background: var(--accent-dark);
 }
 
 .user-button:hover {
@@ -420,7 +511,7 @@ body.dark-mode #userInfo span {
 
 .user-stats {
     background: rgba(231, 76, 60, 0.1);
-    padding: 10px;
+    padding: 8px;
     border-radius: 8px;
     margin: 10px 0;
     font-size: 0.8rem;
@@ -429,7 +520,7 @@ body.dark-mode #userInfo span {
 
 body.dark-mode .user-stats {
     color: var(--text-dark);
-    background: rgba(231, 76, 60, 0.2);
+    background: rgba(255, 107, 107, 0.15);
 }
 
 /* Sistema de mensajes bonitos */
@@ -542,26 +633,68 @@ body.dark-mode .message-close:hover {
     }
 }
 
-@media (max-width: 768px) {
+/* Estilos para móviles */
+@media (max-width: 480px) {
     .container {
         padding: 10px;
     }
     
-    .quote-card, .welcome-screen, .calendar-container, .favorites-section {
-        padding: 20px;
+    h1 {
+        font-size: 1.5rem;
+        padding: 15px 0 5px;
     }
     
-    h1 {
-        font-size: 2rem;
+    .theme-toggle {
+        top: 5px;
+        right: 5px;
+        font-size: 18px;
+        padding: 6px;
+    }
+    
+    .welcome-screen {
+        padding: 20px 15px;
+    }
+    
+    .quote-card {
+        padding: 20px 15px;
     }
     
     .quote-text {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
-    .actions {
-        flex-direction: column;
-        align-items: center;
+    .calendar-container {
+        padding: 12px;
+    }
+    
+    .calendar-grid {
+        grid-template-columns: repeat(7, minmax(30px, 1fr));
+        gap: 3px;
+    }
+    
+    .calendar-day {
+        padding: 6px 2px;
+        font-size: 0.8rem;
+        min-height: 30px;
+    }
+    
+    .nav-buttons {
+        gap: 5px;
+    }
+    
+    .nav-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+    
+    .heart-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
     }
     
     .message-system {

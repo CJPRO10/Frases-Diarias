@@ -6,7 +6,7 @@ let selectedDate = new Date();
 let favorites = {};
 let currentMonth = new Date().getMonth();
 let currentYear = new Date().getFullYear();
-let isDarkMode = false;
+let isDarkMode = localStorage.getItem('darkMode') === 'true';
 let quotesCache = {};
 let personalQuotes = [];
 let allUsers = {};
@@ -35,6 +35,15 @@ const fallbackQuotes = [
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM cargado, iniciando aplicación...');
     
+    // Aplicar tema guardado
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.theme-toggle').textContent = '☀️';
+    } else {
+        document.body.classList.remove('dark-mode');
+        document.querySelector('.theme-toggle').textContent = '🌙';
+    }
+    
     createFlowerBackground();
     loadAllUsers();
     checkCurrentSession();
@@ -45,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Crear fondo de flores
 function createFlowerBackground() {
     const flowersContainer = document.getElementById('flowersBackground');
-    const flowerCount = Math.floor(window.innerWidth * window.innerHeight / 15000);
+    const flowerCount = Math.floor(window.innerWidth * window.innerHeight / 20000);
     
     for (let i = 0; i < flowerCount; i++) {
         const flower = document.createElement('div');
@@ -108,10 +117,15 @@ function toggleTheme() {
     if (isDarkMode) {
         document.body.classList.add('dark-mode');
         document.querySelector('.theme-toggle').textContent = '☀️';
+        localStorage.setItem('darkMode', 'true');
     } else {
         document.body.classList.remove('dark-mode');
         document.querySelector('.theme-toggle').textContent = '🌙';
+        localStorage.setItem('darkMode', 'false');
     }
     
-    saveUserData();
+    // Guardar preferencia de tema si hay usuario logueado
+    if (currentUser) {
+        saveUserData();
+    }
 }
